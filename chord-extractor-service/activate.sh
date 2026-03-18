@@ -1,1 +1,1 @@
-. /home/gianmarco/chord-venv/bin/activate
+. ../ce-venv/bin/activate
