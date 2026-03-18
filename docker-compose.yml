@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  rabbitmq:
+    image: rabbitmq:latest
+    container_name: rabbitmq
+    ports:
+      - "5672:5672" # Porta AMQP
+      - "15672:1567" # Management console di RabbitMQ
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: pass
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s

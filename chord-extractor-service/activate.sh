@@ -1,0 +1,1 @@
+. /home/gianmarco/chord-venv/bin/activate
