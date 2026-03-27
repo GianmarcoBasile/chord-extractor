@@ -1,11 +1,11 @@
 import Header from "./components/Header";
-import SongScrollbox from "./components/SongScrollbox";
+import Song from "./components/Song";
 
 const App = () => {
   return (
     <div>
       <Header />
-      <SongScrollbox
+      <Song
         chords={[
           { chord: "N", timestamp: 0.371519274 },
           { chord: "Cm", timestamp: 0.464399092 },
