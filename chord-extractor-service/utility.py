@@ -1,44 +1,44 @@
 from chord_extractor import ChordChange
 from typing import List, Tuple
 
-sharpScale:List[str] = ["C","C#","D","D#","E","F","F#","G","G#","A", "A#","B"]
-flatScale:List[str] = ["C","Db","D","Eb","E","F","Gb","G","Ab","A", "Bb","B"]
+sharp_scale:List[str] = ["C","C#","D","D#","E","F","F#","G","G#","A", "A#","B"]
+flat_scale:List[str] = ["C","Db","D","Eb","E","F","Gb","G","Ab","A", "Bb","B"]
 
-def swapChords(oldChord: str, newComputedChord: str) -> str:
-  if len(oldChord) > 1 and (oldChord[1] == "#" or oldChord[1] == 'b'):
-    newComputedChord = newComputedChord + oldChord[2:]
+def swap_chords(old_chord: str, new_computed_chord: str) -> str:
+  if len(old_chord) > 1 and (old_chord[1] == "#" or old_chord[1] == 'b'):
+    new_computed_chord = new_computed_chord + old_chord[2:]
   else:
-    newComputedChord = newComputedChord + oldChord[1:]
-  return newComputedChord
+    new_computed_chord = new_computed_chord + old_chord[1:]
+  return new_computed_chord
 
-def computeTransposedChord(chord:str, value:int, scale:str) -> str:
+def compute_transposed_chord(chord:str, value:int, scale:str) -> str:
   parts = chord.split("/")
-  oldChord:str = parts[0]
-  bassOldChord:str = ""
+  old_chord:str = parts[0]
+  bass_old_chord:str = ""
   if len(parts) > 1:
-    bassOldChord = parts[1]
+    bass_old_chord = parts[1]
 
   if scale == '#':
-    if(len(bassOldChord) > 0):
-      return swapChords(oldChord, sharpScale[(sharpScale.index(oldChord[:1]) + value)%len(sharpScale)]) + "/" + sharpScale[(sharpScale.index(bassOldChord) + value)%len(sharpScale)]
+    if(len(bass_old_chord) > 0):
+      return swap_chords(old_chord, sharp_scale[(sharp_scale.index(old_chord[:1]) + value)%len(sharp_scale)]) + "/" + sharp_scale[(sharp_scale.index(bass_old_chord) + value)%len(sharp_scale)]
     else:
-      return swapChords(oldChord, sharpScale[(sharpScale.index(oldChord[:1]) + value)%len(sharpScale)])
+      return swap_chords(old_chord, sharp_scale[(sharp_scale.index(old_chord[:1]) + value)%len(sharp_scale)])
   elif scale == 'b':
-    if(len(bassOldChord) > 0):
-      return swapChords(oldChord, flatScale[(flatScale.index(oldChord[:1]) + value)%len(flatScale)]) + "/" + flatScale[(flatScale.index(bassOldChord) + value)%len(flatScale)]
+    if(len(bass_old_chord) > 0):
+      return swap_chords(old_chord, flat_scale[(flat_scale.index(old_chord[:1]) + value)%len(flat_scale)]) + "/" + flat_scale[(flat_scale.index(bass_old_chord) + value)%len(flat_scale)]
     else:
-      return swapChords(oldChord, flatScale[(flatScale.index(oldChord[:1]) + value)%len(flatScale)])
+      return swap_chords(old_chord, flat_scale[(flat_scale.index(old_chord[:1]) + value)%len(flat_scale)])
 
 def transpose(chords: List[ChordChange], value:int) -> List[ChordChange]:
-  transposedChords:List[ChordChange] = []
+  transposed_chords:List[ChordChange] = []
   for c in chords:
     if c.chord != "N":
       if c.chord.find("#") != -1 or value > 0:
-        newChord:str = computeTransposedChord(c.chord, value, "#")
-        transposedChords.append(ChordChange(newChord, c.timestamp))
+        new_chord:str = compute_transposed_chord(c.chord, value, "#")
+        transposed_chords.append(ChordChange(new_chord, c.timestamp))
       else:
-        newChord:str = computeTransposedChord(c.chord, value, "b")
-        transposedChords.append(ChordChange(newChord, c.timestamp))
+        new_chord:str = compute_transposed_chord(c.chord, value, "b")
+        transposed_chords.append(ChordChange(new_chord, c.timestamp))
     else:
-      transposedChords.append(ChordChange(c.chord, c.timestamp))
-  return transposedChords
+      transposed_chords.append(ChordChange(c.chord, c.timestamp))
+  return transposed_chords
