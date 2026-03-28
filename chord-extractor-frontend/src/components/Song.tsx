@@ -69,7 +69,11 @@ const Song = ({ chords, songDuration: songDuration, bpm }: Props) => {
   useEffect(() => {
     if (!play) return;
     const interval = setInterval(() => {
-      setSelected((prev) => prev + 1);
+      setSelected((prev) => {
+        if (prev < totalBeats) return prev + 1;
+        clearInterval(interval);
+        return prev;
+      });
     }, quarterDuration * 1000);
     return () => clearInterval(interval);
   }, [play]);
