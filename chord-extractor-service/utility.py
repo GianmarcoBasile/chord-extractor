@@ -19,15 +19,17 @@ def compute_transposed_chord(chord:str, value:int, scale:str) -> str:
     bass_old_chord = parts[1]
 
   if scale == '#':
+    sharp_step:int = 2 if len(old_chord) > 1 and old_chord[1] == "#" else 1
     if(len(bass_old_chord) > 0):
-      return swap_chords(old_chord, sharp_scale[(sharp_scale.index(old_chord[:1]) + value)%len(sharp_scale)]) + "/" + sharp_scale[(sharp_scale.index(bass_old_chord) + value)%len(sharp_scale)]
+      return swap_chords(old_chord, sharp_scale[(sharp_scale.index(old_chord[:sharp_step]) + value)%len(sharp_scale)]) + "/" + sharp_scale[(sharp_scale.index(bass_old_chord) + value)%len(sharp_scale)]
     else:
-      return swap_chords(old_chord, sharp_scale[(sharp_scale.index(old_chord[:1]) + value)%len(sharp_scale)])
+      return swap_chords(old_chord, sharp_scale[(sharp_scale.index(old_chord[:sharp_step]) + value)%len(sharp_scale)])
   elif scale == 'b':
+    flat_step:int = 2 if len(old_chord) > 1 and old_chord[1] == "b" else 1
     if(len(bass_old_chord) > 0):
-      return swap_chords(old_chord, flat_scale[(flat_scale.index(old_chord[:1]) + value)%len(flat_scale)]) + "/" + flat_scale[(flat_scale.index(bass_old_chord) + value)%len(flat_scale)]
+      return swap_chords(old_chord, flat_scale[(flat_scale.index(old_chord[:flat_step]) + value)%len(flat_scale)]) + "/" + flat_scale[(flat_scale.index(bass_old_chord) + value)%len(flat_scale)]
     else:
-      return swap_chords(old_chord, flat_scale[(flat_scale.index(old_chord[:1]) + value)%len(flat_scale)])
+      return swap_chords(old_chord, flat_scale[(flat_scale.index(old_chord[:flat_step]) + value)%len(flat_scale)])
 
 def transpose(chords: List[ChordChange], value:int) -> List[ChordChange]:
   transposed_chords:List[ChordChange] = []
