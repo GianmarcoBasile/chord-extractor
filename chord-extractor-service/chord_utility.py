@@ -41,7 +41,7 @@ def transpose_root(root: str, value: int, prefer_sharp: bool = True) -> str:
 
 def compute_transposed_chord(chord: str, value: int, prefer_sharp: bool = True) -> str:
     """
-    Trasposta un accordo completo, root, suffisso e basso incluso
+    Traspone un accordo completo, root, suffisso e basso incluso
     """
     parts = chord.split("/")
     root, suffix = split_chord(parts[0])
@@ -56,7 +56,7 @@ def compute_transposed_chord(chord: str, value: int, prefer_sharp: bool = True) 
 
 def transpose(chords: List[ChordChange], value: int, prefer_sharp: bool = True) -> List[ChordChange]:
     """
-    Trasposta una lista di ChordChange di `value` semitoni
+    Traspone una lista di ChordChange di `value` semitoni
     """
     transposed: List[ChordChange] = []
     for c in chords:
