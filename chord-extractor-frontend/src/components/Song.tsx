@@ -19,7 +19,7 @@ interface Props {
 
 const Song = ({ chords, songDuration: songDuration, bpm }: Props) => {
   const beats: React.ReactNode[] = [];
-  const chordMap: Map<number, string> = new Map<number, string>();
+  const chordMap: Map<number, ChordChange> = new Map<number, ChordChange>();
   const totalBeats: number = Math.ceil((songDuration * bpm) / 60);
   const beatsPerBar = 4;
   const quarterDuration = 60 / bpm;
@@ -32,18 +32,23 @@ const Song = ({ chords, songDuration: songDuration, bpm }: Props) => {
 
   chords.forEach((chord) => {
     const beat_index = Math.round(chord.timestamp / quarterDuration);
-    chordMap.set(beat_index, chord.chord);
+    chordMap.set(beat_index, {
+      chord: chord.chord,
+      timestamp: chord.timestamp,
+    });
   });
+
+  let beatTimestamp = 0;
 
   for (let i = 0; i < totalBeats; i += beatsPerBar) {
     const barBeats: React.ReactNode[] = [];
-
     for (let j = 0; j < beatsPerBar; j++) {
       const currentChord = i + j;
       barBeats.push(
         <Beat
           key={`bar-${currentChord}`}
-          chord={chordMap.get(currentChord)}
+          chord={chordMap.get(currentChord)?.chord}
+          timestamp={(beatTimestamp += quarterDuration)}
           selected={selected == currentChord}
           ref={selected == currentChord ? beatRef : null}
         />,
