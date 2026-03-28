@@ -1,17 +1,12 @@
 import sys
-from typing import List
-from chord_extractor import ChordChange
 from chord_extractor.extractors import Chordino
-from utility import transpose
+from chord_utility import transpose, parse_chords
 import librosa
 
 def extract_chords(file_path:str):
-  chordino = Chordino(roll_on=1)
+  chordino = Chordino()
   chords = chordino.extract(file_path)
   return chords
-
-def parse_chords(extracted_chords:List[ChordChange]):
-  print(" - ".join(e.chord for e in extracted_chords))
 
 def get_song_bpm(file_path: str):
   song = librosa.load(file_path)
@@ -27,7 +22,7 @@ def main():
   transpose_value = 0
   if len(sys.argv[1:]) > 1:
     transpose_value = int(sys.argv[2])
-  print(transpose(extract_chords(file_path), transpose_value))
+  print(parse_chords(transpose(extract_chords(file_path), transpose_value)))
   print("BPM:", get_song_bpm(file_path))
   
 
