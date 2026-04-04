@@ -7,7 +7,7 @@ public class UserDTO {
 	private String uuid;
 	private String username;
 	private String email;
-	private List<Song> songs;
+	private List<String> songs;
 	
 	public String getUuid() {
 		return uuid;
@@ -27,16 +27,16 @@ public class UserDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public List<Song> getSongs() {
+	public List<String> getSongs() {
 		return songs;
 	}
-	public void setSongs(List<Song> songs) {
+	public void setSongs(List<String> songs) {
 		this.songs = songs;
 	}
 	
 	public UserDTO() {}
 	
-	public UserDTO(String uuid, String username, String email, List<Song> songs) {
+	public UserDTO(String uuid, String username, String email, List<String> songs) {
 		super();
 		this.uuid = uuid;
 		this.username = username;

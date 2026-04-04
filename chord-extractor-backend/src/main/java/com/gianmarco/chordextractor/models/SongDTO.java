@@ -7,7 +7,7 @@ public class SongDTO {
 	private short duration;
 	private short bpm;
 	private String url;
-	private User generateBy;
+	private String generatedBy;
 	
 	public String getUuid() {
 		return uuid;
@@ -39,23 +39,23 @@ public class SongDTO {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public User getGenerateBy() {
-		return generateBy;
+	public String getGeneratedBy() {
+		return generatedBy;
 	}
-	public void setGenerateBy(User generateBy) {
-		this.generateBy = generateBy;
+	public void setGeneratedBy(String generatedByUuid) {
+		this.generatedBy = generatedByUuid;
 	}
 	
 	public SongDTO() {}
 	
-	public SongDTO(String uuid, String title, short duration, short bpm, String url, User generateBy) {
+	public SongDTO(String uuid, String title, short duration, short bpm, String url, String generateBy) {
 		super();
 		this.uuid = uuid;
 		this.title = title;
 		this.duration = duration;
 		this.bpm = bpm;
 		this.url = url;
-		this.generateBy = generateBy;
+		this.generatedBy = generateBy;
 	}
  
 }
