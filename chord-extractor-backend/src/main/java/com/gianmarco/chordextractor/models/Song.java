@@ -1,5 +1,7 @@
 package com.gianmarco.chordextractor.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +34,8 @@ public class Song {
 	private String url;
 	
 	@ManyToOne
-	@JoinColumn(nullable = false)
+	@JoinColumn(name = "generated_by", nullable = false)
+	@JsonBackReference
 	private User generatedBy;
 
 	public long getId() {

@@ -3,6 +3,8 @@ package com.gianmarco.chordextractor.models;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,6 +34,7 @@ public class User {
 	private String hashedPassword;
 	
 	@OneToMany(mappedBy = "generatedBy", cascade = CascadeType.REMOVE)
+	@JsonManagedReference
 	private List<Song> songs;
 	
 	private LocalDateTime createdAt;
